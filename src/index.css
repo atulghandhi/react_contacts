@@ -76,10 +76,11 @@ body, .app {
 
 /* ListContacts */
 
-.list-contacts {
+.container-div {
   padding-top: 60px;
 }
-.list-contacts-top {
+
+.search-bar {
   position: fixed;
   width: 100%;
   top: 0;
