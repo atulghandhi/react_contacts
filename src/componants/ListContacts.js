@@ -1,15 +1,21 @@
 import React, { Component } from 'react';  //would use this import if using a class component
-// import React from 'react';
+// import React from 'react'; //would use this import if using a functional component
+import {Link} from "react-router-dom";
 import PropTypes from 'prop-types';
 
 class ListContacts extends Component {  //class component. Can be replaced with functional component if only using render method.
+
+    componentDidUpdate(prevProps, prevState) {
+        console.log("Component did update")
+    }
+
     static propTypes = { //prop-types defined like so for class components.
         contacts: PropTypes.array.isRequired,
         onDeleteContact: PropTypes.func.isRequired,
     }
 
     state={
-        query:''
+        query:'' //everytime anything inside the state object changed, the render() method for this component is called
     }
 
     handleChange = (event) => {
@@ -17,6 +23,7 @@ class ListContacts extends Component {  //class component. Can be replaced with 
     }
 
     render() {
+        //destructure state and props into variable we can use
         const {query} = this.state;
         const {contacts, onDeleteContact} = this.props;
 
@@ -36,7 +43,17 @@ class ListContacts extends Component {  //class component. Can be replaced with 
                         placeholder={'Search contacts..'}
                         value={query}
                         onChange={this.handleChange}/>
+
+                    <Link
+                        className={'add-contact'}
+                        to={'/create'}>
+                        Add contact
+                    </Link>
                 </div>
+
+                <p className={'showing-contacts'}>
+                    {`Showing ${showingContacts.length} of ${contacts.length} total `}
+                </p>
 
                 <ol className='contact-list'>
                     {showingContacts.map((contact) =>
